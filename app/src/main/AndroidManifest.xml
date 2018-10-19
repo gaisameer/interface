@@ -19,7 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".club_details"></activity>
+        <activity android:name=".club_details" />
+        <activity
+            android:name=".club_description"
+            android:label="@string/title_activity_club_description"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

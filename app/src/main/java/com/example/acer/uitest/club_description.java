@@ -2,16 +2,8 @@ package com.example.acer.uitest;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,62 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity
+public class club_description extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    TabLayout tabLayout;
-    ViewPager pager;
-    Toolbar t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-
-
-        NestedScrollView scrollView = (NestedScrollView) findViewById (R.id.nest_scrollview);      ///////////look
-        scrollView.setFillViewport (true);                                                              // look look look
-
-        t=(Toolbar)findViewById(R.id.toolbar);
-        tabLayout=(TabLayout)findViewById(R.id.tabs);
-        pager=(ViewPager)findViewById(R.id.viewpager);
+        setContentView(R.layout.activity_club_description);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        t.setTitle("interfaCET");
-
-
-      //  CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-
-//        collapsingToolbarLayout.setTitle("interfaCET");
-
-  //      collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(android.R.color.white));
-
-    //    collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-
-
-
-        pager.setAdapter(new myadapter(getSupportFragmentManager()));
-        tabLayout.setupWithViewPager(pager);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                pager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -104,14 +49,14 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            finish();              // change this so that app closes when back is pressed
+            super.onBackPressed();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.club_description, menu);
         return true;
     }
 
@@ -127,10 +72,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-        if (id == R.id.action_others) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -141,9 +82,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            Intent i= new Intent(this,club_description.class);
+            Intent i=new Intent(this,MainActivity.class);
             startActivity(i);
-
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -159,40 +99,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    class myadapter extends FragmentPagerAdapter{
-
-        String data[]={"Clubs","College","University"};
-
-        public myadapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-
-            if(i ==0){
-                return new club();
-            }
-            if(i ==1){
-                return new college();
-            }
-            if(i ==2){
-                return new university();
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return data.length;
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int i) {
-            return data[i];
-        }
     }
 }
